@@ -14,8 +14,8 @@
     <dependency>
       <groupId>com.github.jinahya</groupId>
       <artifactId>json-cdc</artifactId>
-      <version>0.9</version>
-      <!--version>1.0-SNAPSHOT</version-->
+      <!--version>0.9</version-->
+      <version>1.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -25,9 +25,15 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>kxml2</groupId>
+      <groupId>net.sf.kxml</groupId>
       <artifactId>kxml2</artifactId>
       <version>2.3.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.microlog</groupId>
+      <artifactId>microlog-logger-core</artifactId>
+      <version>2.3.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -51,6 +57,12 @@
 
   <!-- Build Settings -->
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -121,22 +133,35 @@
         <groupId>com.github.wvengen</groupId>
         <artifactId>proguard-maven-plugin</artifactId>
         <configuration>
-          <!--includeDependency>false</includeDependency-->
           <injar>${project.build.finalName}-jar-with-dependencies.${project.packaging}</injar>
           <outjar>${project.build.finalName}-proguard.${project.packaging}</outjar>
           <libs>
+            <!--
             <lib>${java.bootstrap.classes}</lib>
             <lib>${java.cryptographic.extension.classes}</lib>
             <lib>${java.secure.socket.extension.classes}</lib>
+            -->
           </libs>
           <options>
             <option>-keep public class * implements javax.tv.xlet.Xlet</option>
-            <!--
-            <option>-keep public class com.github.jinahya.test.HelloWorld { public static *; }</option>
             <option>-keepattributes Signature</option>
             <option>-keepattributes InnerClasses</option>
-            -->
+            <option>-keep public enum * { **[] $VALUES; public *; }</option>
           </options>
+          <exclusions>
+            <exclusion>
+              <groupId>com.github.jinahya</groupId>
+              <artifactId>json-cdc</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>net.sf.kxml</groupId>
+              <artifactId>kxml2</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>net.sf.microlog</groupId>
+              <artifactId>microlog-logger-core</artifactId>
+            </exclusion>
+          </exclusions>
         </configuration>
         <dependencies>
           <dependency>
@@ -281,6 +306,41 @@
     </site>
   </distributionManagement>
   <profiles>
+    <profile>
+      <id>development</id>
+      <properties>
+        <microlog.level>DEBUG</microlog.level>
+        <environment.id>development</environment.id>
+        <server.baseurl>http://development.server.com</server.baseurl>
+      </properties>
+    </profile>
+    <profile>
+      <id>integration</id>
+      <properties>
+        <microlog.level>DEBUG</microlog.level>
+        <environment.id>integration</environment.id>
+        <server.baseurl>http://integration.server.com</server.baseurl>
+      </properties>
+    </profile>
+    <profile>
+      <id>staging</id>
+      <properties>
+        <microlog.level>INFO</microlog.level>
+        <environment.id>staging</environment.id>
+        <server.baseurl>http://staging.server.com</server.baseurl>
+      </properties>
+    </profile>
+    <profile>
+      <id>production</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <microlog.level>INFO</microlog.level>
+        <environment.id>production</environment.id>
+        <server.baseurl>http://production.server.com</server.baseurl>
+      </properties>
+    </profile>
     <profile>
       <id>release-sign-artifacts</id>
       <activation>
