@@ -1,0 +1,24 @@
+{
+  "family": {
+    "lastName": "Doe",
+    "parent": {
+      "father": {
+        "name": "John"
+      },
+      "mother": {
+        "maidenName": "Roe",
+        "name": "Jane"
+      }
+    },
+    "children": {
+      "child": [
+        {
+          "name": "Jonnie"
+        },
+        {
+          "name": "Janie"
+        }
+      ]
+    }
+  }
+}

@@ -14,8 +14,7 @@
     <dependency>
       <groupId>com.github.jinahya</groupId>
       <artifactId>json-cdc</artifactId>
-      <!--version>0.9</version-->
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -143,10 +142,17 @@
             -->
           </libs>
           <options>
-            <option>-keep public class * implements javax.tv.xlet.Xlet</option>
+            <option>-keepclasseswithmembers public class * { public static void main(java.lang.String[]); }</option>
+            <!--option>-keep public class * implements javax.tv.xlet.Xlet { public *; protected *; }</option-->
+            <option>-keepclassmembers public class * implements javax.tv.xlet.Xlet { public void *; protected void *; public *; protected *; }</option>
             <option>-keepattributes Signature</option>
             <option>-keepattributes InnerClasses</option>
+            <option>-overloadaggressively</option>
+            <option>-repackageclasses ''</option>
+            <option>-allowaccessmodification</option>
+            <option>-printseeds</option>
             <option>-keep public enum * { **[] $VALUES; public *; }</option>
+            <option>-keep public class * implements org.xmlpull.v1.XmlSerializer</option>
           </options>
           <exclusions>
             <exclusion>

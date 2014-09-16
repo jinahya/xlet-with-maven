@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<family lastName="Doe">
+  <parent>
+    <father>
+      <name>John</name>
+    </father>
+    <mother maidenName="Roe">
+      <name>Jane</name>
+    </mother>
+  </parent>
+  <children>
+    <child>
+      <name>Jonnie</name>
+    </child>
+    <child>
+      <name>Janie</name>
+    </child>
+  </children>
+</family>

@@ -26,42 +26,43 @@ public class HelloWorldXlet implements Xlet {
         = "/environment.properties";
 
 
-    public void initXlet(final XletContext xc) throws XletStateChangeException {
-
-        PropertyConfigurator.configure("/microlog.properties");
+    public static void main(final String[] args) throws IOException {
 
         final Properties properties = new Properties();
-        {
-            final InputStream resource = getClass().getResourceAsStream(
-                NAME_ENVIRONMENT_PROPERTIES);
-            if (resource == null) {
-                throw new XletStateChangeException(
-                    "resource not found: " + NAME_ENVIRONMENT_PROPERTIES);
-            }
-            try {
-                try {
-                    properties.load(resource);
-                } finally {
-                    resource.close();
-                }
-            } catch (final IOException ioe) {
-                logger.fatal("failed to loading " + NAME_ENVIRONMENT_PROPERTIES,
-                             ioe);
-                throw new XletStateChangeException(ioe.getMessage());
-            }
+
+        final InputStream resource = HelloWorldXlet.class.getResourceAsStream(
+            NAME_ENVIRONMENT_PROPERTIES);
+        if (resource == null) {
+            throw new RuntimeException(
+                "resource not found: " + NAME_ENVIRONMENT_PROPERTIES);
         }
-        for (final Enumeration keys = properties.keys();
-             keys.hasMoreElements();) {
-            final String key = (String) keys.nextElement();
+        try {
+            properties.load(resource);
+        } finally {
+            resource.close();
+        }
+        for (final Enumeration e = properties.keys(); e.hasMoreElements();) {
+            final String key = (String) e.nextElement();
             final String value = properties.getProperty(key);
             logger.info("property: " + key + " / " + value);
         }
     }
 
 
+    public void initXlet(final XletContext xc) throws XletStateChangeException {
+
+        PropertyConfigurator.configure("/microlog.properties");
+
+        logger.info("initXlet(" + xc + ")");
+    }
+
+
     public void startXlet() throws XletStateChangeException {
 
         logger.info("startXlet()");
+
+        // JSON
+        // XML
     }
 
 
