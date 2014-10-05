@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<family xmlns="http://github.com/jinahya/test" lastName="Doe">
+  <parent>
+    <father age="40">
+      <name>John</name>
+    </father>
+    <mother maidenName="Roe" age="38">
+      <name>Jane</name>
+    </mother>
+  </parent>
+  <children age="17" gender="female">
+    <name>Janie</name>
+  </children>
+  <children age="15" gender="male">
+    <name>Jonnie</name>
+  </children>
+</family>

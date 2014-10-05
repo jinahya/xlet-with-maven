@@ -1,0 +1,26 @@
+{
+  "lastName": "Doe",
+  "parent": {
+    "father": {
+      "age": 40,
+      "name": "John"
+    },
+    "mother": {
+      "maidenName": "Roe",
+      "age": 38,
+      "name": "Jane"
+    }
+  },
+  "children": [
+    {
+      "age": 17,
+      "gender": "female",
+      "name": "Janie"
+    },
+    {
+      "age": 15,
+      "gender": "male",
+      "name": "Jonnie"
+    }
+  ]
+}

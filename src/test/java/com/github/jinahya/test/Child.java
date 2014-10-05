@@ -13,32 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.github.jinahya.test;
-
-
-import javax.tv.xlet.XletStateChangeException;
-import org.testng.annotations.Test;
 
 
 /**
  *
  * @author Jin Kwon
  */
-public class HelloWorldXletTest {
-
-
-    @Test
-    public void run() throws XletStateChangeException {
-
-        final HelloWorldXlet xlet = new HelloWorldXlet();
-
-        xlet.initXlet(null);
-        xlet.startXlet();
-        xlet.pauseXlet();
-        xlet.destroyXlet(true);
-    }
+public class Child extends Member {
 
 
 }
