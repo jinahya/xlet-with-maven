@@ -27,24 +27,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 public class HelloWorldXlet implements Xlet {
 
 
-    private static final String NAME_ENVIRONMENT_PROPERTIES
-        = "/environment.properties";
-
-
-    public static void main(final String[] args)
-        throws XletStateChangeException {
-
-        Xlet xlet = new HelloWorldXlet();
-
-        xlet.initXlet(null);
-        xlet.startXlet();
-        xlet.pauseXlet();
-        xlet.destroyXlet(true);
-
-        xlet = null;
-    }
-
-
     public HelloWorldXlet() {
 
         super();
