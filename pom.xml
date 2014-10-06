@@ -144,7 +144,7 @@
             -->
           </libs>
           <options>
-            <option>-keep public class * implements javax.tv.xlet.Xlet</option>
+            <option>-keep public class * implements javax.tv.xlet.Xlet { public void *; }</option>
             <!--option>-keepclassmembers public class * implements javax.tv.xlet.Xlet { public void *; protected void *; public *; protected *; }</option-->
             <option>-keepattributes Signature</option>
             <option>-keepattributes InnerClasses</option>
@@ -153,7 +153,6 @@
             <option>-allowaccessmodification</option>
             <option>-printseeds</option>
             <option>-keep public enum * { **[] $VALUES; public *; }</option>
-            <!--option>-keep public class * implements org.xmlpull.v1.XmlSerializer</option-->
             <option>-keep public class org.kxml2.io.KXmlParser</option>
           </options>
           <exclusions>
