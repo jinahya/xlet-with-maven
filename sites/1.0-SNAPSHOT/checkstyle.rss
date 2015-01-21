@@ -19,20 +19,20 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>proguard-with-maven - Checkstyle report</title>
-    <link>https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/proguard-with-maven/1.0-SNAPSHOT</link>
-    <description>proguard-with-maven - Checkstyle report</description>
+    <title>xlet-with-maven-example - Checkstyle report</title>
+    <link>https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT</link>
+    <description>xlet-with-maven-example - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2014 - 2015</copyright>
     <item>
-      <title>File: 1,
-             Errors: 30,
+      <title>File: 3,
+             Errors: 14,
              Warnings: 0,
              Infos: 0
       </title>
-            <link>https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/proguard-with-maven/1.0-SNAPSHOT/checkstyle.html</link>
+            <link>https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT/checkstyle.html</link>
       <description>
-        <p>Click <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/proguard-with-maven/1.0-SNAPSHOT/checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT/checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/proguard-with-maven/1.0-SNAPSHOT/checkstyle.html#com.github.jinahya.test.HelloWorld.java">com/github/jinahya/test/HelloWorld.java</a>
+                  <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT/checkstyle.html#application.properties">application.properties</a>
                 </td>
                 <td>
                   0
@@ -55,7 +55,35 @@ under the License.
                   0
                 </td>
                 <td>
-                  30
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT/checkstyle.html#microlog.properties">microlog.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT/checkstyle.html#com.github.jinahya.test.HelloWorldXlet.java">com/github/jinahya/test/HelloWorldXlet.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
                 </td>
               </tr>
                       </tbody>
