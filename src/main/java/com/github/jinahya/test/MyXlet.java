@@ -1,3 +1,5 @@
+
+
 package com.github.jinahya.test;
 
 
@@ -24,15 +26,15 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 
-public class HelloWorldXlet implements Xlet {
+public class MyXlet implements Xlet {
 
 
-    public HelloWorldXlet() {
+    public MyXlet() {
 
         super();
 
         PropertyConfigurator.configure("/microlog.properties");
-        logger = LoggerFactory.getLogger(HelloWorldXlet.class);
+        logger = LoggerFactory.getLogger(MyXlet.class);
     }
 
 

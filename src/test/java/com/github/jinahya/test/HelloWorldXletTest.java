@@ -31,7 +31,7 @@ public class HelloWorldXletTest {
     @Test
     public void loadDestroy() throws XletStateChangeException {
 
-        Xlet xlet = new HelloWorldXlet();
+        Xlet xlet = new MyXlet();
 
         xlet.destroyXlet(true);
 
@@ -42,7 +42,7 @@ public class HelloWorldXletTest {
     @Test
     public void initDestroy() throws XletStateChangeException {
 
-        Xlet xlet = new HelloWorldXlet();
+        Xlet xlet = new MyXlet();
 
         xlet.initXlet(null);
         xlet.destroyXlet(true);
@@ -54,7 +54,7 @@ public class HelloWorldXletTest {
     @Test
     public void startDestroy() throws XletStateChangeException {
 
-        Xlet xlet = new HelloWorldXlet();
+        Xlet xlet = new MyXlet();
 
         xlet.initXlet(null);
         xlet.startXlet();
@@ -67,7 +67,7 @@ public class HelloWorldXletTest {
     @Test
     public void pauseDestroy() throws XletStateChangeException {
 
-        Xlet xlet = new HelloWorldXlet();
+        Xlet xlet = new MyXlet();
 
         xlet.initXlet(null);
         xlet.startXlet();
