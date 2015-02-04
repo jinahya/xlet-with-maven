@@ -33,17 +33,12 @@
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1.1</version>
+      <scope>compile</scope>
       <exclusions>
         <exclusion>
           <groupId>junit</groupId>
           <artifactId>junit</artifactId>
         </exclusion>
-        <!--
-        <exclusion>
-          <groupId>org.hamcrest</groupId>
-          <artifactId>hamcrest-core</artifactId>
-        </exclusion>
-        -->
       </exclusions>
     </dependency>
     <dependency>
@@ -62,7 +57,7 @@
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>6.8.17</version>
+      <version>6.8.21</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -112,12 +107,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
+        <version>2.5.3</version>
         <executions>
           <execution>
             <id>assembly</id>
@@ -125,28 +115,30 @@
             <goals>
               <goal>single</goal>
             </goals>
+            <configuration>
+              <finalName>${project.build.finalName}-${environment.id}</finalName>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+            </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
-        <!--groupId>com.pyx4me</groupId-->
         <groupId>com.github.wvengen</groupId>
         <artifactId>proguard-maven-plugin</artifactId>
         <version>2.0.7</version>
         <configuration>
-          <injar>${project.build.finalName}-jar-with-dependencies.${project.packaging}</injar>
-          <!--outjar>${project.build.finalName}-proguard.${project.packaging}</outjar-->
-          <outjar>${project.build.finalName}-${environment.id}.${project.packaging}</outjar>
+          <!--<includeDependency>false</includeDependency>-->
+          <injar>${project.build.finalName}-${environment.id}-jar-with-dependencies.${project.packaging}</injar>
+          <outjar>${project.build.finalName}-${environment.id}-proguard.${project.packaging}</outjar>
           <libs>
-            <!--
             <lib>${java.bootstrap.classes}</lib>
             <lib>${java.cryptographic.extension.classes}</lib>
             <lib>${java.secure.socket.extension.classes}</lib>
-            -->
           </libs>
           <options>
             <option>-keep public class * implements javax.tv.xlet.Xlet { public void *; }</option>
-            <!--option>-keepclassmembers public class * implements javax.tv.xlet.Xlet { public void *; protected void *; public *; protected *; }</option-->
             <option>-keepattributes Signature</option>
             <option>-keepattributes InnerClasses</option>
             <option>-overloadaggressively</option>
@@ -161,6 +153,10 @@
               <groupId>com.github.jinahya</groupId>
               <artifactId>json-cdc</artifactId>
             </exclusion>
+            <!--            <exclusion>
+              <groupId>com.googlecode.jinahya</groupId>
+              <artifactId>ocap-api</artifactId>
+            </exclusion>-->
             <exclusion>
               <groupId>com.googlecode.json-simple</groupId>
               <artifactId>json-simple</artifactId>
@@ -179,7 +175,7 @@
           <dependency>
             <groupId>net.sf.proguard</groupId>
             <artifactId>proguard-base</artifactId>
-            <version>5.0</version>
+            <version>5.2</version>
             <scope>runtime</scope>
           </dependency>
         </dependencies>
@@ -189,6 +185,25 @@
             <phase>package</phase>
             <goals>
               <goal>proguard</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <configuration>
+              <target>
+                <copy file="${project.build.directory}/${project.build.finalName}-${environment.id}-proguard.${project.packaging}"
+                      toFile="${project.build.directory}/${project.build.finalName}-${environment.id}-deploy.zip"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
             </goals>
           </execution>
         </executions>
@@ -225,17 +240,15 @@
           <targetJdk>1.7</targetJdk>
         </configuration>
       </plugin>
-      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <version>2.6</version>
       </plugin>
-      -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.5.4</version>
+        <version>3.0.0</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
