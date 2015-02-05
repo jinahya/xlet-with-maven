@@ -60,6 +60,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT/checkstyle.html#com.github.jinahya.test.MyXlet.java">com/github/jinahya/test/MyXlet.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT/checkstyle.html#microlog.properties">microlog.properties</a>
                 </td>
                 <td>
@@ -70,20 +84,6 @@ under the License.
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://www.jinahya.com/mvn/site/com.googlecode.jinahya.test/xlet-with-maven-example/1.0-SNAPSHOT/checkstyle.html#com.github.jinahya.test.HelloWorldXlet.java">com/github/jinahya/test/HelloWorldXlet.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  13
                 </td>
               </tr>
                       </tbody>
