@@ -13,14 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jinahya.test;
+
+
+package com.github.jinahya.example;
+
+
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 
 
 /**
  *
- * @author Jin Kwon
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class Child extends Member {
+@XmlEnum
+public enum Gender {
+
+
+    @XmlEnumValue("female") FEMALE,
+    @XmlEnumValue("male") MALE
 
 
 }

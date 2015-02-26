@@ -13,65 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jinahya.test;
+
+
+package com.github.jinahya.example;
 
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 
 
 /**
  *
- * @author Jin Kwon
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public abstract class Member {
+public class Mother extends Member {
 
 
-    public int getAge() {
+    public String getMaidenName() {
 
-        return age;
+        return maidenName;
     }
 
 
-    public void setAge(final int age) {
-        this.age = age;
-    }
+    public void setMaidenName(final String maidenName) {
 
-
-    public Gender getGender() {
-
-        return gender;
-    }
-
-
-    public void setGender(final Gender gender) {
-
-        this.gender = gender;
-    }
-
-
-    public String getName() {
-
-        return name;
-    }
-
-
-    public void setName(String name) {
-
-        this.name = name;
+        this.maidenName = maidenName;
     }
 
 
     @XmlAttribute
-    private int age;
-
-
-    @XmlAttribute
-    private Gender gender;
-
-
-    @XmlElement
-    private String name;
+    private String maidenName;
 
 
 }

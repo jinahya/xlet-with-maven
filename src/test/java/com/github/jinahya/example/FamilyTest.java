@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jinahya.test;
+
+
+package com.github.jinahya.example;
 
 
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
@@ -42,7 +44,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Jin Kwon
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
 public class FamilyTest {
 
@@ -202,10 +204,9 @@ public class FamilyTest {
     public void generateXsd() throws JAXBException, IOException {
 
         final JAXBContext context
-            = JAXBContext.newInstance("com.github.jinahya.test");
+            = JAXBContext.newInstance("com.github.jinahya.example");
 
         context.generateSchema(new SchemaOutputResolver() {
-
 
             @Override
             public Result createOutput(final String namespaceUri,
@@ -218,10 +219,8 @@ public class FamilyTest {
                         return "";
                     }
 
-
                 };
             }
-
 
         });
     }
@@ -231,7 +230,7 @@ public class FamilyTest {
     public void marshalXml() throws JAXBException, IOException {
 
         final JAXBContext context
-            = JAXBContext.newInstance("com.github.jinahya.test");
+            = JAXBContext.newInstance("com.github.jinahya.example");
 
         final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -244,7 +243,7 @@ public class FamilyTest {
     public void unmarshalXml() throws JAXBException, IOException {
 
         final JAXBContext context
-            = JAXBContext.newInstance("com.github.jinahya.test");
+            = JAXBContext.newInstance("com.github.jinahya.example");
 
         final Unmarshaller unmarshaller = context.createUnmarshaller();
 

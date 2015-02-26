@@ -5,16 +5,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <!-- The Basics -->
-  <groupId>com.googlecode.jinahya.test</groupId>
+  <groupId>com.googlecode.jinahya.example</groupId>
   <artifactId>xlet-with-maven-example</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <dependencyManagement/>
   <dependencies>
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-jaxb-annotations</artifactId>
-      <version>2.5.0</version>
+      <version>2.5.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -55,6 +55,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.0.4-beta</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>6.8.21</version>
@@ -81,28 +87,26 @@
         <filtering>true</filtering>
       </resource>
     </resources>
-    <pluginManagement/>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.10.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>com.github.github</groupId>
         <artifactId>site-maven-plugin</artifactId>
-        <version>0.10</version>
+        <version>0.11</version>
         <configuration>
           <server>github</server>
           <message>creating site for ${project.version}</message>
           <path>sites/${project.version}</path>
           <merge>true</merge>
         </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <!--
-                    <goal>site</goal>
-              -->
-            </goals>
-            <phase>site</phase>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -129,7 +133,6 @@
         <artifactId>proguard-maven-plugin</artifactId>
         <version>2.0.7</version>
         <configuration>
-          <!--<includeDependency>false</includeDependency>-->
           <injar>${project.build.finalName}-${environment.id}-jar-with-dependencies.${project.packaging}</injar>
           <outjar>${project.build.finalName}-${environment.id}-proguard.${project.packaging}</outjar>
           <libs>
@@ -138,6 +141,7 @@
             <lib>${java.secure.socket.extension.classes}</lib>
           </libs>
           <options>
+            <option>-keep public class * { public static void main(java.lang.String[]); }</option>
             <option>-keep public class * implements javax.tv.xlet.Xlet { public void *; }</option>
             <option>-keepattributes Signature</option>
             <option>-keepattributes InnerClasses</option>
@@ -148,15 +152,12 @@
             <option>-keep public enum * { **[] $VALUES; public *; }</option>
             <option>-keep public class org.kxml2.io.KXmlParser</option>
           </options>
+          <includeDependency>true</includeDependency>
           <exclusions>
             <exclusion>
               <groupId>com.github.jinahya</groupId>
               <artifactId>json-cdc</artifactId>
             </exclusion>
-            <!--            <exclusion>
-              <groupId>com.googlecode.jinahya</groupId>
-              <artifactId>ocap-api</artifactId>
-            </exclusion>-->
             <exclusion>
               <groupId>com.googlecode.json-simple</groupId>
               <artifactId>json-simple</artifactId>
@@ -215,29 +216,28 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.5</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.12.1</version>
+        <version>2.14</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.8</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.1</version>
+        <version>3.4</version>
         <configuration>
-          <targetJdk>1.7</targetJdk>
+          <targetJdk>1.3</targetJdk>
         </configuration>
       </plugin>
       <!--      <plugin>
@@ -304,19 +304,13 @@
   </prerequisites>
   <repositories />
   <pluginRepositories />
-  <distributionManagement>
-    <site>
-      <id>jinahya.com</id>
-      <url>dav:${project.url}</url>
-    </site>
-  </distributionManagement>
+  <distributionManagement/>
   <profiles>
     <profile>
       <id>development</id>
       <properties>
         <environment.id>development</environment.id>
         <microlog.level>DEBUG</microlog.level>
-        <environment.id>development</environment.id>
         <server.baseurl>http://development.server.com</server.baseurl>
       </properties>
     </profile>
@@ -325,7 +319,6 @@
       <properties>
         <environment.id>integration</environment.id>
         <microlog.level>DEBUG</microlog.level>
-        <environment.id>integration</environment.id>
         <server.baseurl>http://integration.server.com</server.baseurl>
       </properties>
     </profile>
@@ -334,7 +327,6 @@
       <properties>
         <environment.id>staging</environment.id>
         <microlog.level>INFO</microlog.level>
-        <environment.id>staging</environment.id>
         <server.baseurl>http://staging.server.com</server.baseurl>
       </properties>
     </profile>
@@ -346,35 +338,8 @@
       <properties>
         <environment.id>production</environment.id>
         <microlog.level>INFO</microlog.level>
-        <environment.id>production</environment.id>
         <server.baseurl>http://production.server.com</server.baseurl>
       </properties>
-    </profile>
-    <profile>
-      <id>release-sign-artifacts</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
   </profiles>
 </project>

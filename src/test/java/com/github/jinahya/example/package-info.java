@@ -22,7 +22,7 @@
     }
 )
 @XmlAccessorType(XmlAccessType.NONE)
-package com.github.jinahya.test;
+package com.github.jinahya.example;
 
 
 import javax.xml.XMLConstants;

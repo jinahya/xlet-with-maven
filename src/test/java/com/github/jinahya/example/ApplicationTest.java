@@ -13,68 +13,84 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jinahya.test;
+
+
+package com.github.jinahya.example;
 
 
 import javax.tv.xlet.Xlet;
+import javax.tv.xlet.XletContext;
 import javax.tv.xlet.XletStateChangeException;
+import static org.mockito.Mockito.mock;
 import org.testng.annotations.Test;
 
 
 /**
  *
- * @author Jin Kwon
+ * @author Jin Kwon &lt;jinahya_at_gmail.com&gt;
  */
-public class HelloWorldXletTest {
+public class ApplicationTest {
 
 
     @Test
     public void loadDestroy() throws XletStateChangeException {
 
-        Xlet xlet = new MyXlet();
+        final XletContext context = mock(XletContext.class);
+
+        final Xlet xlet = new Application();
+        // LOADED
 
         xlet.destroyXlet(true);
-
-        xlet = null;
+        // DESTROYED
     }
 
 
     @Test
     public void initDestroy() throws XletStateChangeException {
 
-        Xlet xlet = new MyXlet();
+        final XletContext context = mock(XletContext.class);
 
-        xlet.initXlet(null);
+        final Xlet xlet = new Application();
+        // LOADED
+
+        xlet.initXlet(context);
+        // INITIALIZED
+
         xlet.destroyXlet(true);
-
-        xlet = null;
+        // DESTROYED
     }
 
 
     @Test
     public void startDestroy() throws XletStateChangeException {
 
-        Xlet xlet = new MyXlet();
+        final XletContext context = mock(XletContext.class);
+
+        final Xlet xlet = new Application();
+        // LOADED
 
         xlet.initXlet(null);
-        xlet.startXlet();
-        xlet.destroyXlet(true);
+        // PAUSED
 
-        xlet = null;
+        xlet.startXlet();
+        // ACTIVE
+
+        xlet.destroyXlet(true);
+        // DESTROYED
     }
 
 
     @Test
     public void pauseDestroy() throws XletStateChangeException {
 
-        Xlet xlet = new MyXlet();
+        final XletContext context = mock(XletContext.class);
 
-        xlet.initXlet(null);
+        final Xlet xlet = new Application();
+
+        xlet.initXlet(context);
         xlet.startXlet();
         xlet.pauseXlet();
         xlet.destroyXlet(true);
-
-        xlet = null;
     }
 
 
