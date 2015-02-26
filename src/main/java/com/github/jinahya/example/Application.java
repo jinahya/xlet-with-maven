@@ -68,6 +68,62 @@ public class Application implements Xlet {
     }
 
 
+    private static interface ResourceConsumer {
+
+
+        void consume(InputStream resource) throws Exception;
+
+
+    }
+
+
+    private static void consumeFamilXml(final ResourceConsumer consumer)
+        throws Exception {
+
+        final Logger logger = LoggerFactory.getLogger(Application.class);
+
+        logger.info("consumeFamilyXml(" + consumer + ")");
+
+        final InputStream resource
+            = Application.class.getResourceAsStream("/example/family.xml");
+        if (resource == null) {
+            logger.error("failed to load /example/family.xml");
+            return;
+        }
+
+        try {
+            consumer.consume(resource);
+        } finally {
+            resource.close();
+        }
+    }
+
+
+    private static void consumeFamilJson(final ResourceConsumer consumer)
+        throws Exception {
+
+        final Logger logger = LoggerFactory.getLogger(Application.class);
+
+        logger.info("consumeFamilyXml(" + consumer + ")");
+
+        final InputStream resource
+            = Application.class.getResourceAsStream("/example/family.json");
+        if (resource == null) {
+            logger.error("failed to load /example/family.json");
+            return;
+        }
+
+        try {
+            consumer.consume(resource);
+        } finally {
+            resource.close();
+        }
+    }
+
+
+    /**
+     * Creates a new instance.
+     */
     public Application() {
 
         super();
@@ -109,10 +165,13 @@ public class Application implements Xlet {
 
         // parse xml kdom
         try {
-            final Reader input = new InputStreamReader(
-                getClass().getResourceAsStream("/family.xml"), "UTF-8");
-            try {
-                try {
+            consumeFamilXml(new ResourceConsumer() {
+
+                public void consume(final InputStream resource)
+                    throws Exception {
+
+                    final Reader input
+                        = new InputStreamReader(resource, "UTF-8");
                     final XmlPullParser parser = factory.newPullParser();
                     parser.setInput(input);
                     final Document document = new Document();
@@ -120,22 +179,22 @@ public class Application implements Xlet {
                     final Element family = document.getRootElement();
                     logger.info("family/@lastName: "
                                 + family.getAttributeValue(null, "lastName"));
-                } catch (final XmlPullParserException xppe) {
-                    xppe.printStackTrace(System.err);
                 }
-            } finally {
-                input.close();
-            }
-        } catch (final IOException ioe) {
-            ioe.printStackTrace(System.err);
+
+            });
+        } catch (final Exception e) {
+            e.printStackTrace(System.err);
         }
 
         // parse xml pull
         try {
-            final Reader input = new InputStreamReader(
-                getClass().getResourceAsStream("/family.xml"), "UTF-8");
-            try {
-                try {
+            consumeFamilXml(new ResourceConsumer() {
+
+                public void consume(final InputStream resource)
+                    throws Exception {
+
+                    final Reader input
+                        = new InputStreamReader(resource, "UTF-8");
                     final XmlPullParser parser = factory.newPullParser();
                     parser.setInput(input);
                     parser.nextTag(); // start element
@@ -143,47 +202,48 @@ public class Application implements Xlet {
                                    "http://github.com/jinahya/test", "family");
                     logger.info("family/@lastName: "
                                 + parser.getAttributeValue(null, "lastName"));
-                } catch (final XmlPullParserException xppe) {
-                    xppe.printStackTrace(System.err);
                 }
-            } finally {
-                input.close();
-            }
-        } catch (final IOException ioe) {
-            ioe.printStackTrace(System.err);
+
+            });
+        } catch (final Exception e) {
+            e.printStackTrace(System.err);
         }
 
         try {
-            final Reader reader = new InputStreamReader(
-                getClass().getResourceAsStream("/family.json"), "UTF-8");
-            try {
-                final JSONTokener tokener = new JSONTokener(reader);
-                final JSONObject family = new JSONObject(tokener);
-                logger.info("family.lastName: " + family.get("lastName"));
-            } finally {
-                reader.close();
-            }
-        } catch (final IOException ioe) {
-            ioe.printStackTrace(System.err);
+            consumeFamilJson(new ResourceConsumer() {
+
+                public void consume(final InputStream resource)
+                    throws Exception {
+
+                    final Reader reader
+                        = new InputStreamReader(resource, "UTF-8");
+                    final JSONTokener tokener = new JSONTokener(reader);
+                    final JSONObject family = new JSONObject(tokener);
+                    logger.info("family.lastName: " + family.get("lastName"));
+                }
+
+            });
+        } catch (final Exception e) {
+            e.printStackTrace(System.err);
         }
 
         try {
-            final Reader reader = new InputStreamReader(
-                getClass().getResourceAsStream("/family.json"), "UTF-8");
-            try {
-                final JSONParser parser = new JSONParser();
-                try {
+            consumeFamilJson(new ResourceConsumer() {
+
+                public void consume(final InputStream resource)
+                    throws Exception {
+
+                    final Reader reader
+                        = new InputStreamReader(resource, "UTF-8");
+                    final JSONParser parser = new JSONParser();
                     final org.json.simple.JSONObject family
                         = (org.json.simple.JSONObject) parser.parse(reader);
                     logger.info("family.lastName: " + family.get("lastName"));
-                } catch (final ParseException pe) {
-                    pe.printStackTrace(System.err);
                 }
-            } finally {
-                reader.close();
-            }
-        } catch (final IOException ioe) {
-            ioe.printStackTrace(System.err);
+
+            });
+        } catch (final Exception e) {
+            e.printStackTrace(System.err);
         }
     }
 
