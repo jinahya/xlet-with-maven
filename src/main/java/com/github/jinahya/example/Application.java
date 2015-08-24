@@ -18,7 +18,6 @@ import net.sf.microlog.core.PropertyConfigurator;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.kxml2.kdom.Document;
 import org.kxml2.kdom.Element;
 import org.xmlpull.v1.XmlPullParser;
@@ -35,26 +34,41 @@ public class Application implements Xlet {
     }
 
 
+    private static Properties loadProperties(final String name)
+        throws IOException {
+
+        final Logger logger = LoggerFactory.getLogger(Application.class);
+
+        logger.debug("loading properties: " + name);
+
+        final Properties properties = new Properties();
+
+        final InputStream stream = Application.class.getResourceAsStream(name);
+        if (stream != null) {
+            try {
+                properties.load(stream);
+            } finally {
+                stream.close();
+            }
+        }
+
+        return properties;
+    }
+
+
     private static void printProperties(final String name) throws IOException {
 
         final Logger logger = LoggerFactory.getLogger(Application.class);
 
         logger.info("printing properties: " + name);
 
-        final InputStream stream = Application.class.getResourceAsStream(name);
-        if (stream != null) {
-            try {
-                final Properties properties = new Properties();
-                properties.load(stream);
-                for (final Enumeration e = properties.keys();
-                     e.hasMoreElements();) {
-                    final Object key = e.nextElement();
-                    final Object val = properties.get(key);
-                    logger.info(key + "=" + val);
-                }
-            } finally {
-                stream.close();
-            }
+        final Properties properties = loadProperties(name);
+
+        for (final Enumeration e = properties.keys();
+             e.hasMoreElements();) {
+            final Object key = e.nextElement();
+            final Object val = properties.get(key);
+            logger.info(key + "=" + val);
         }
     }
 
